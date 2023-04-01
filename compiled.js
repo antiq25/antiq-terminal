@@ -300,7 +300,7 @@ function commander(cmd) {
     case "sudo":
       addLine("Oh no, you're not admin...", "color2", 80);
       setTimeout(function() {
-        window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+        window.open('https://soundcloud.com/delvin-sanchez-49605748/switch-up-freestyle');
       }, 1000); 
       break;
     case "social":
