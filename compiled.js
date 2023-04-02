@@ -1,6 +1,5 @@
 whois = [
   "<br>",
-  "Moshi mos, Melvin Jones Repol desu!",
   "I'm a Software Engineer with experience in Web Development, SEO, Data Analyst and Computer Troubleshooting. <br>The creator of Webvium. A Self Taught Programer.<br><a href=\"https://antiq25.github.io/?ref=antiq25.me\" target=\"blank\">https://antiq25.github.io</a>",
   "<br>"
 ];
