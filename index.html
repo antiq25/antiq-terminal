@@ -1,27 +1,28 @@
-<!DOCTYPE html>  
-<html>                                                          
-    <head>
-        <link rel="stylesheet" href="styles.css">
-        </head>
-        <body>
-                <div class='window'>
-                <div class='head2'>
-                  <a href="#" class='btn'>&#10005;</a>
-                  <a href="#" class='btn stnd'>&#9472;</a>
-                  <a href="#" class='btn stnd max'>&#9723;</a>
-                </div>
-                <div id="terminal">
-                <a id="before"></a>
-                      </div>  
-                <div id="command" onclick="$('texter').focus();">
-                 <textarea type="text" id="texter" onkeyup="typeIt(this, event)" onkeydown="typeIt(this, event);  moveIt(this.value.length, event)"
-                    onkeypress="typeIt(this, event);" autofocus></textarea>
-                  <div id="liner">
-                    <span id="typer"></span><b class="cursor" id="cursor">█</b>
-                  </div>
-                </div>
-    <script src="caret.js" async defer></script>
-    <script src="compiled.js" async defer></script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HomeTerm</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="dark">
+    <div id="terminal" onclick="focusPrompt()">
+      <div id="terminal-content"></div>
+    </div>
+    <a class="github-link" href="https://github.com/Jaredk3nt/HomeTerm">
+      Contribute on GitHub
+    </a>
+
+    <script src='src/constants.js'></script>
+    <script src="src/utils.js"></script>
+    <script src="src/localStorageUtils.js"></script>
+    <script src="src/writers.js"></script>
+    <script src="src/commands.js"></script>
+    <script src="src/cli.js"></script>
   </body>
 </html>
-
