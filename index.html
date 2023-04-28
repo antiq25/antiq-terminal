@@ -1,24 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HomeTerm</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@1,500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body class="dark">
-    <div id="terminal" onclick="focusPrompt()">
-      <div id="terminal-content"></div>
-    </div>
-    <script src='src/constants.js'></script>
-    <script src="src/utils.js"></script>
-    <script src="src/localStorageUtils.js"></script>
-    <script src="src/writers.js"></script>
-    <script src="src/commands.js"></script>
-    <script src="src/cli.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="platform.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div id="terminal" class="terminal"></div>
+    <span id="prompt" class="terminal-prompt">&gt; </span>
+    <input type="text" id="commandInput" class="commandInput terminal-input" autocomplete="off" autofocus="true"></input>
+  <script src="script.js"></script>
+  <script src="funcs.js"></script>
+</body>
 </html>
