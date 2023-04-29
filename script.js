@@ -75,7 +75,7 @@ function executeCommand(command) {
       displaySearchOptions();
       break;
     case "info":
-    displayPlatformInfo()
+      displayPlatformInfo();
       break;
     case "ip":
       getIPData();
@@ -83,17 +83,31 @@ function executeCommand(command) {
     case "cls":
       terminal.innerText = "";
       break;
-    case "help": 
-    const displayHelp = document.createElement("div");
-    terminal.innerText = "cmds = search - ip - info - cls"
-    break;
+    case "help":
+      const displayHelp = document.createElement("div");
+      terminal.innerText =
+        "commands // [search] - google, brave, bing - [info] - displays what terminal can see - [cls] - clears terminal - [txt]-  creates txt - [save] - saves txt - [load] - loads txt";
+      break;
+    // Add new cases for text file writer functions here
+    case "txt":
+      txt();
+      break;
+    case "save":
+      saveToFile();
+      break;
+    case "load":
+      loadFromFile();
+      break;
+    case "delete":
+      deleteFileCookies();
+      break;
     default:
-      const unknownCommandOutput = document.createElement("div");
-      unknownCommandOutput.innerText = "Unknown command: " + command;
-      terminal.appendChild(unknownCommandOutput);
+      terminal.innerHTML += "<div>Unknown command: " + command + "</div>";
       break;
   }
 }
+
+
 
 function displaySearchOptions() {
   const terminal = document.getElementById("terminal");

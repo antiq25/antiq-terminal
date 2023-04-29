@@ -108,6 +108,6 @@ function displayPlatformInfo() {
   }
 }
 
-
-
+/// Function to open a text editor for creating a new file
+// Function to open a text editor for creating a new file
 
