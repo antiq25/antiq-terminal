@@ -1,17 +1,20 @@
 // Text file writer functions
 function txt() {
-    const terminal = document.getElementById("terminal");
-  
-    // Create a new text input element
-    const fileContents = document.createElement("textarea");
-    fileContents.setAttribute("id", "file-contents");
-  
-    // Append the text input element to the terminal
-    terminal.appendChild(fileContents);
-  
-    // Set the focus to the text input element
-    fileContents.focus();
-  }
+  const terminal = document.getElementById("terminal");
+
+  // Clear the terminal before creating a new text input element
+  terminal.innerHTML = "";
+
+  // Create a new text input element
+  const fileContents = document.createElement("textarea");
+  fileContents.setAttribute("id", "file-contents");
+
+  // Append the text input element to the terminal
+  terminal.appendChild(fileContents);
+
+  // Set the focus to the text input element
+  fileContents.focus();
+}
   
   function saveToFile() {
     const terminal = document.getElementById("terminal");
@@ -36,43 +39,57 @@ function txt() {
   
   function loadFromFile() {
     const terminal = document.querySelector("#terminal");
-    
+  
     const cookies = document.cookie.split(";").map((cookie) => cookie.trim());
     const fileCookies = cookies.filter((cookie) => cookie.startsWith("terminal-file-"));
-    
+  
     if (fileCookies.length === 0) {
       terminal.innerHTML += "<div>No saved files found.</div>";
       return;
     }
-    
+  
     const fileList = fileCookies.map((cookie) => cookie.substring(14));
     const fileSelectHtml = fileList.map((file) => `<option value="${file}">${file}</option>`).join('');
     const loadFormHtml = `
       <div>Files:</div>
-      <select id="fileSelect">
+      <select class="fileSelect">
         ${fileSelectHtml}
       </select>
-      <button id="loadButton">Load</button>
+      <button class="loadButton">Load</button>
     `;
-    
-    terminal.innerHTML += loadFormHtml;
-    
-    const fileSelect = document.querySelector("#fileSelect");
-    const loadButton = document.querySelector("#loadButton");
-    
-    loadButton.addEventListener("click", () => {
+  
+    // Check if the file select element and "Load" button already exist
+    const existingFileSelect = document.querySelector(".fileSelect");
+    const existingLoadButton = document.querySelector(".loadButton");
+  
+    if (existingFileSelect && existingLoadButton) {
+      existingFileSelect.innerHTML = fileSelectHtml;
+    } else {
+      terminal.innerHTML += loadFormHtml;
+    }
+  
+    const fileSelect = document.querySelector(".fileSelect:last-of-type");
+    const loadButton = document.querySelector(".loadButton:last-of-type");
+  
+    const loadHandler = () => {
       const selectedFile = fileSelect.value;
       const selectedCookie = fileCookies.find((cookie) => cookie.substring(14) === selectedFile);
-    
+  
       if (!selectedCookie) {
         terminal.innerHTML += "<div>File not found.</div>";
         return;
       }
-    
+  
+      // Clear the terminal before loading the selected file
+      terminal.innerHTML = "";
+  
       const fileContent = decodeURIComponent(selectedCookie.split("=")[1]);
       terminal.innerHTML += `<div>${fileContent}</div>`;
-    });
+    };
+  
+    loadButton.addEventListener("click", loadHandler);
   }
+  
   
   
   function deleteFileCookies() {

@@ -81,7 +81,7 @@ function executeCommand(command) {
       getIPData();
       break;
     case "cls":
-      terminal.innerText = "";
+      document.getElementById("terminal").innerText = "";
       break;
     case "help":
       const displayHelp = document.createElement("div");
