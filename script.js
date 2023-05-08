@@ -107,8 +107,6 @@ function executeCommand(command) {
   }
 }
 
-
-
 function displaySearchOptions() {
   const terminal = document.getElementById("terminal");
 
