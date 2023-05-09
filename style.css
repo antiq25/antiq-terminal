@@ -1,31 +1,106 @@
-html {
-  background-color: black;
+.terminal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-
-#container {
+.terminal {
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 1.2;
   background-color: black;
-}
-
-#container {
-  position: absolute;
   color: white;
+  width: 80%;
+  height: 80%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  background-color: #333;
+  height: 24px;
+  padding: 0 8px;
+}
+
+.terminal-controls {
+  display: flex;
+}
+
+.terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.terminal-dot-red {
+  background-color: #ff5f56;
+}
+
+.terminal-dot-yellow {
+  background-color: #ffbd2e;
+}
+
+.terminal-dot-green {
+  background-color: #27c93f;
+}
+
+.terminal-title {
+  font-size: 12px;
+  color: white;
+  margin-left: 8px;
+}
+
+.terminal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.terminal-prompt {
+  color: #7fdbca;
+  font-weight: bold;
+}
+
+.terminal-input {
+  display: flex;
+  padding: 8px;
+}
+
+.terminal-input-field {
+  background-color: transparent;
+  color: white;
+  border: none;
+  outline: none;
+  flex: 1;
+  margin-left: 8px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #333;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #999;
 }
 
 #file-contents {
+  background-color: black;
   color: white;
-  background-color: black;
-}
-
-
-input {
-  margin-top: 10px;
-  background-color: black;
-}
-
-
-input {
-  font-size: 12px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: white;;
 }

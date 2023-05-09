@@ -1,4 +1,4 @@
-let currentPrompt = "> ";
+let currentPrompt = " ";
 let lastSearchQuery = "";
 let searchPrompt = false;
 const promptElement = document.getElementById("prompt");
@@ -9,14 +9,14 @@ function handleInput(event) {
     return;
   }
 
-  const inputField = document.getElementById("commandInput");
+  const inputField = document.querySelector("#commandInput");
   const input = inputField.value.trim();
 
   // Clear the input field
   inputField.value = "";
 
   const terminal = document.getElementById("terminal");
-
+  
   if (searchPrompt) {
     const inputArray = input.split(" ");
 

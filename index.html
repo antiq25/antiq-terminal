@@ -4,18 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <script src="chat.js"></script>
   <script src="platform.js"></script>
 </head>
 <body>
-  <div id="container">
-     <div class="terminal-wrapper">
-        <div id="terminal" class="terminal">welcome to the terminal
+  <div class="terminal-container">
+    <div class="terminal">
+      <div class="terminal-header">
+        <div class="terminal-controls">
+          <div class="terminal-dot terminal-dot-red"></div>
+          <div class="terminal-dot terminal-dot-yellow"></div>
+          <div class="terminal-dot terminal-dot-green"></div>
         </div>
-     </div>
-    <span id="prompt" class="terminal-prompt">&gt;</span>
-    <input type="text" id="commandInput"/>   
-    <div id="file-contents"></div>
-    </div>  
+        <div class="terminal-title">root@workshop.eclectiq.cc</div>
+      </div>
+      <div class="terminal-body" id="terminal">
+      </div>
+      <div class="terminal-input">
+        <span id="prompt" class="terminal-prompt"></span>
+        <input type="text" id="commandInput" class="terminal-input-field">
+        <div id="file-contents"></div>
+      </div>
+    </div>
+  </div>
+  
   <script src="script.js"></script>
   <script src="funcs.js"></script>
   <script src="txtwriter.js"></script>
