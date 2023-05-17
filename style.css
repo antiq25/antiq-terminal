@@ -104,3 +104,7 @@
   background-color: black;
   color: white;
 }
+
+.selected-link {
+  background-color: yellow;;
+}

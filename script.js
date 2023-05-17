@@ -1,67 +1,34 @@
-let currentPrompt = " ";
+let currentPrompt = "> ";
 let lastSearchQuery = "";
 let searchPrompt = false;
+let linkPrompt = false;
 const promptElement = document.getElementById("prompt");
 promptElement.innerText = currentPrompt;
 
 function handleInput(event) {
-  if (event.key !== "Enter") {
-    return;
-  }
-
   const inputField = document.querySelector("#commandInput");
-  const input = inputField.value.trim();
-
-  // Clear the input field
-  inputField.value = "";
-
   const terminal = document.getElementById("terminal");
-  
-  if (searchPrompt) {
-    const inputArray = input.split(" ");
 
-    if (inputArray.length > 1) {
-      const query = inputArray.slice(1).join(" ");
-      lastSearchQuery = query;
+  if (event.key === "Enter") {
+    const selectedLink = terminal.querySelector(".selected-link");
+    if (selectedLink) {
+      const url = selectedLink.dataset.url;
+      terminal.innerHTML += `<div>Opening link: ${selectedLink.textContent}</div>`;
+      window.open(url, "_blank");
 
-      switch (inputArray[0].toLowerCase()) {
-        case "google":
-          terminal.innerHTML += `<div>Searching Google for "${query}"</div>`;
-          window.open(`https://www.google.com/search?q=${query}`, '_blank');
-          currentPrompt = "> ";
-          promptElement.innerText = currentPrompt;
-          searchPrompt = false;
-          break;
-        case "brave":
-          terminal.innerHTML += `<div>Searching Brave Search for "${query}"</div>`;
-          window.open(`https://search.brave.com/search?q=${query}`, '_blank');
-          currentPrompt = "> ";
-          promptElement.innerText = currentPrompt;
-          searchPrompt = false;
-          break;
-        case "bing":
-          terminal.innerHTML += `<div>Searching Bing for "${query}"</div>`;
-          window.open(`https://www.bing.com/search?q=${query}`, '_blank');
-          currentPrompt = "> ";
-          promptElement.innerText = currentPrompt;
-          searchPrompt = false;
-          break;
-        default:
-          terminal.innerHTML += `<div>Invalid search engine. Try again with a valid search engine:</div>`;
-          currentPrompt = `Enter search engine name and query (${lastSearchQuery}): `;
-          promptElement.innerText = currentPrompt;
-          break;
-      }
-    } else if (inputArray[0].toLowerCase() === "exit") {
-      terminal.innerHTML += "<div>Left search prompt.</div>";
+      // Clear the terminal and end the query
+      terminal.innerHTML = "";
+      inputField.value = "";
       currentPrompt = "> ";
       promptElement.innerText = currentPrompt;
-      searchPrompt = false;
+      linkPrompt = false;
+      selectedLink.classList.remove("selected-link");
     } else {
-      terminal.innerHTML += "<div>No search query specified</div>";
+      executeCommand(inputField.value.trim());
+
+      // Clear the input field
+      inputField.value = "";
     }
-  } else {
-    executeCommand(input);
   }
 }
 
@@ -81,25 +48,20 @@ function executeCommand(command) {
       getIPData();
       break;
     case "cls":
-      document.getElementById("terminal").innerText = "";
+      terminal.innerText = "";
       break;
     case "help":
-      const displayHelp = document.createElement("div");
-      terminal.innerText =
-        "commands // [search] - google, brave, bing - [info] - displays what terminal can see - [cls] - clears terminal - [txt]-  creates txt - [save] - saves txt - [load] - loads txt";
+      terminal.innerHTML = `
+        <div>commands:</div>
+        <div>- [search] - google, brave, bing</div>
+        <div>- [info] - displays what terminal can see</div>
+        <div>- [ip] - get IP data</div>
+        <div>- [cls] - clears terminal</div>
+        <div>- [help] - displays available commands</div>
+      `;
       break;
-    // Add new cases for text file writer functions here
-    case "txt":
-      txt();
-      break;
-    case "save":
-      saveToFile();
-      break;
-    case "load":
-      loadFromFile();
-      break;
-    case "delete":
-      deleteFileCookies();
+    case "links":
+      displayLinks();
       break;
     default:
       terminal.innerHTML += "<div>Unknown command: " + command + "</div>";
@@ -118,11 +80,64 @@ function displaySearchOptions() {
     <div>- Bing</div>
   `;
 
-  // If last search query exists, show it as a placeholder in the prompt
+  // If last search query exists, show it as a placeholder
   const placeholderText = lastSearchQuery ? `(${lastSearchQuery})` : "";
   currentPrompt = `Enter search engine name and query ${placeholderText}: `;
   promptElement.innerText = currentPrompt;
 
   // Set the searchPrompt flag to true
   searchPrompt = true;
+}
+
+function displayLinks() {
+  const terminal = document.getElementById("terminal");
+
+  // Display predetermined links
+  terminal.innerHTML += `
+    <div>Available links:</div>
+    <div data-url="https://link3.com">- Remove PNG</div>
+    <div data-url="https://link2.com">- </div>
+    <div data-url="https://link1.com">- Displays</div>
+  `;
+
+  // Set the initial selected link index
+  let selectedLinkIndex = 0;
+
+  // Function to handle link selection
+  function selectLink(index) {
+    const linkElements = terminal.querySelectorAll("div[data-url]");
+    if (linkElements.length === 0) return;
+
+    // Normalize index within range
+    selectedLinkIndex = (index + linkElements.length) % linkElements.length;
+
+    // Remove "selected-link" class from all links
+    linkElements.forEach((link) => {
+      link.classList.remove("selected-link");
+    });
+
+    // Add "selected-link" class to the currently selected link
+    const selectedLink = linkElements[selectedLinkIndex];
+    selectedLink.classList.add("selected-link");
+  }
+
+  // Handle keydown events for arrow navigation
+  function handleKeydown(event) {
+    if (event.key === "ArrowUp") {
+      selectLink(selectedLinkIndex - 1);
+    } else if (event.key === "ArrowDown") {
+      selectLink(selectedLinkIndex + 1);
+    }
+  }
+
+  // Attach keydown event listener to the document
+  document.addEventListener("keydown", handleKeydown);
+
+  // If last search query exists, show it as a placeholder in the prompt
+  const placeholderText = lastSearchQuery ? `(${lastSearchQuery})` : "";
+  currentPrompt = `Use arrow keys to select a link and press Enter to open ${placeholderText}`;
+  promptElement.innerText = currentPrompt;
+
+  // Set the linkPrompt flag to true
+  linkPrompt = true;
 }
