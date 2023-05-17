@@ -43,22 +43,25 @@ function displayPlatformInfo() {
   const userName = parseUserNameFromUserAgent(navigator.userAgent);
   const infoString = `
   <pre>
-eqterm 1.0a 
-------------
+
 OS: ${systemInfo.os.toString()}
 Browser: ${systemInfo.name} ${systemInfo.version}
 CPU Cores: ${navigator.hardwareConcurrency}
 Screen Resolution: ${window.screen.width} x  ${window.screen.height}
 Platform: ${systemInfo.description}
-`;getIPData();
-const printInfo = document.createElement("div");
-printInfo.innerHTML = infoString;
-const terminal = document.getElementById("terminal");
-terminal.appendChild(printInfo);
+`;
+  const printInfo = document.createElement("div");
+  printInfo.innerHTML = infoString;
+  const terminal = document.getElementById("terminal");
+  terminal.appendChild(printInfo);
+  getIPData();
 }
+
 document.addEventListener("DOMContentLoaded", function () {
   displayPlatformInfo();
 });
+
+
 
 
 /// Function to open a text editor for creating a new file
