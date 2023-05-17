@@ -1,3 +1,8 @@
+html {
+  background-color: black;
+}
+
+
 .terminal-container {
   display: flex;
   justify-content: center;
@@ -8,7 +13,7 @@
 .terminal {
   font-family: monospace;
   font-size: 14px;
-  line-height: 1.2;
+  line-height: 1;
   background-color: black;
   color: white;
   width: 80%;
@@ -107,4 +112,10 @@
 
 .selected-link {
   background-color: yellow;;
+}
+
+#printinfo {
+  color:red;
+  background-color: white;
+  margin-top: 5%;
 }

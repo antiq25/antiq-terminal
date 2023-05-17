@@ -14,31 +14,6 @@ function getIPData() {
   t.send();
 }
 
-function clearInput() {
-  const inputField = document.getElementById("commandInput");
-  inputField.value = "";
-}
-
-function displaySearchOptions() {
-  const terminal = document.getElementById("terminal");
-
-  // Display search engine options
-  terminal.innerHTML += `
-    <div>Select search engine:</div>
-    <div>- Google</div>
-    <div>- Brave</div>
-    <div>- Bing</div>
-  `;
-
-  // If last search query exists, show it as a placeholder in the prompt
-  const placeholderText = lastSearchQuery ? `(${lastSearchQuery})` : "";
-  currentPrompt = `Enter search engine name and query ${placeholderText}: `;
-  promptElement.innerText = currentPrompt;
-
-  // Set the searchPrompt flag to true
-  searchPrompt = true;
-}
-
 function displayPlatformInfo() {
   if (typeof platform === "undefined") {
     console.error("platform.js library is not loaded.");
@@ -67,46 +42,27 @@ function displayPlatformInfo() {
 
   const userName = parseUserNameFromUserAgent(navigator.userAgent);
   const infoString = `
-    <div>Information for ${userName}</div>
-    <div>OS: ${systemInfo.os.toString()}</div>
-    <div>Browser: ${systemInfo.name} ${systemInfo.version}</div>
-    <div>CPU Cores: ${navigator.hardwareConcurrency}</div>
-    <div>Screen Resolution: ${window.screen.width} x ${window.screen.height}</div>
-    <div>Platform: ${systemInfo.description}</div>
-  `;
+  <pre>
+eqterm 1.0a 
+------------
+OS: ${systemInfo.os.toString()}
+Browser: ${systemInfo.name} ${systemInfo.version}
+CPU Cores: ${navigator.hardwareConcurrency}
+Screen Resolution: ${window.screen.width} x  ${window.screen.height}
+Platform: ${systemInfo.description}
+IP:
+`;
   const printInfo = document.createElement("div");
   printInfo.innerHTML = infoString;
   const terminal = document.getElementById("terminal");
-  getIPData()
-
-  // Get the user's geolocation
-  if ("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const latitude = position.coords.latitude.toFixed(6);
-        const longitude = position.coords.longitude.toFixed(6);
-        const locationString = `
-          <div>Latitude: ${latitude}</div>
-          <div>Longitude: ${longitude}</div>
-        `;
-        const locationInfo = document.createElement("div");
-        locationInfo.innerHTML = locationString;
-        printInfo.appendChild(locationInfo);
-        terminal.appendChild(printInfo);
-      },
-      (error) => {
-        if (error.code === error.PERMISSION_DENIED) {
-          terminal.innerHTML += "<div>Unable to fetch location.</div>";
-        } else {
-          console.error(error);
-        }
-        terminal.appendChild(printInfo);
-      }
-    );
-  } else {
-    terminal.appendChild(printInfo);
-  }
+  terminal.appendChild(printInfo);
+  getIPData();
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  displayPlatformInfo();
+});
+
 
 /// Function to open a text editor for creating a new file
 // Function to open a text editor for creating a new file

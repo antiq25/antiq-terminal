@@ -23,6 +23,14 @@ function handleInput(event) {
       promptElement.innerText = currentPrompt;
       linkPrompt = false;
       selectedLink.classList.remove("selected-link");
+    } else if (searchPrompt) {
+      executeSearch(inputField.value.trim());
+
+      // Clear the input field
+      inputField.value = "";
+      currentPrompt = "> ";
+      promptElement.innerText = currentPrompt;
+      searchPrompt = false;
     } else {
       executeCommand(inputField.value.trim());
 
@@ -33,6 +41,34 @@ function handleInput(event) {
 }
 
 document.getElementById("commandInput").addEventListener("keydown", handleInput);
+
+function executeSearch(query) {
+  const terminal = document.getElementById("terminal");
+
+  // Get the search engine name and query
+  const [engineName, ...searchTerms] = query.split(" ");
+
+  // Perform search based on the search engine
+  switch (engineName.toLowerCase()) {
+    case "google":
+      terminal.innerHTML += `<div>Searching Google for "${searchTerms.join(" ")}"</div>`;
+      window.open(`https://www.google.com/search?q=${searchTerms.join("+")}`, "_blank");
+      break;
+    case "brave":
+      terminal.innerHTML += `<div>Searching Brave Search for "${searchTerms.join(" ")}"</div>`;
+      window.open(`https://search.brave.com/search?q=${searchTerms.join("+")}`, "_blank");
+      break;
+    case "bing":
+      terminal.innerHTML += `<div>Searching Bing for "${searchTerms.join(" ")}"</div>`;
+      window.open(`https://www.bing.com/search?q=${searchTerms.join("+")}`, "_blank");
+      break;
+    default:
+      terminal.innerHTML += `<div>Invalid search engine. Try again with a valid search engine:</div>`;
+      currentPrompt = `Enter search engine name and query (${lastSearchQuery}): `;
+      promptElement.innerText = currentPrompt;
+      break;
+  }
+}
 
 function executeCommand(command) {
   const terminal = document.getElementById("terminal");
@@ -53,16 +89,28 @@ function executeCommand(command) {
     case "help":
       terminal.innerHTML = `
         <div>commands:</div>
-        <div>- [search] - google, brave, bing</div>
-        <div>- [info] - displays what terminal can see</div>
-        <div>- [ip] - get IP data</div>
+        <div>- [search] - google, brave, bing for now. type google to open google, or google <query> to search etc</div>
+        <div>- [info] - displays what terminal can see via platform.js</div>
+        <div>- [ip] - gets IP d</div>
         <div>- [cls] - clears terminal</div>
         <div>- [help] - displays available commands</div>
+        <div>- [links] - links to tools 
       `;
       break;
     case "links":
       displayLinks();
       break;
+    case "txt": txt()
+      break
+    case "save":
+      saveToFile()
+      break
+    case "load":
+      loadFromFile()
+      break
+    case "delete":
+      deleteFileCookies()
+      break
     default:
       terminal.innerHTML += "<div>Unknown command: " + command + "</div>";
       break;
@@ -96,7 +144,7 @@ function displayLinks() {
   terminal.innerHTML += `
     <div>Available links:</div>
     <div data-url="https://link3.com">- Remove PNG</div>
-    <div data-url="https://link2.com">- </div>
+    <div data-url="https://link2.com">- Link 2</div>
     <div data-url="https://link1.com">- Displays</div>
   `;
 
