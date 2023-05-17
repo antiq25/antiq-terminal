@@ -189,3 +189,19 @@ function displayLinks() {
   // Set the linkPrompt flag to true
   linkPrompt = true;
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const terminal = document.getElementById("terminal");
+  terminal.innerHTML += `
+     <pre>
+                    dP                                
+                    88                                
+.d8888b. .d8888b. d8888P .d8888b. 88d888b. 88d8b.d8b. 
+88ooood8 88'  \`88   88   88ooood8 88'  \`88 88'\`88'\'88 
+88.  ... 88.  .88   88   88.  ... 88       88  88  88 
+\`88888P' \`8888P88   dP   \`88888P' dP       dP  dP  dP 
+               88                                     
+               dP  
+      </pre>
+  `;}
+)

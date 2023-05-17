@@ -50,15 +50,12 @@ Browser: ${systemInfo.name} ${systemInfo.version}
 CPU Cores: ${navigator.hardwareConcurrency}
 Screen Resolution: ${window.screen.width} x  ${window.screen.height}
 Platform: ${systemInfo.description}
-IP:
-`;
-  const printInfo = document.createElement("div");
-  printInfo.innerHTML = infoString;
-  const terminal = document.getElementById("terminal");
-  terminal.appendChild(printInfo);
-  getIPData();
+`;getIPData();
+const printInfo = document.createElement("div");
+printInfo.innerHTML = infoString;
+const terminal = document.getElementById("terminal");
+terminal.appendChild(printInfo);
 }
-
 document.addEventListener("DOMContentLoaded", function () {
   displayPlatformInfo();
 });
