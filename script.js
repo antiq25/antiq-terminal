@@ -29,9 +29,7 @@ function handleInput(event) {
       } else {
         if (searchPrompt) {
           executeSearch(inputField.value.trim());
-        } else {
-          // Handle other prompts as needed
-        }
+      }
 
         // Clear the input field
         inputField.value = "";
@@ -117,12 +115,41 @@ function executeCommand(command) {
   }
 }
 
+function executeSearch(searchEngineQuery) {
+  const terminal = document.getElementById("terminal");
+  
+  // Split the search engine and the query
+  const [searchEngine, ...queryParts] = searchEngineQuery.split(" ");
+  const query = queryParts.join(" ");
+
+  let url;
+  switch (searchEngine.toLowerCase()) {
+      case 'google':
+          url = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+          break;
+      case 'brave':
+          url = `https://search.brave.com/search?q=${encodeURIComponent(query)}`;
+          break;
+      case 'bing':
+          url = `https://www.bing.com/search?q=${encodeURIComponent(query)}`;
+          break;
+      default:
+          terminal.innerHTML += `<div>Unknown search engine: ${searchEngine}</div>`;
+          return;
+  }
+
+  // If we're here, we have a valid search engine and query
+  terminal.innerHTML += `<div>Searching ${searchEngine} for: ${query}</div>`;
+  window.open(url, "_blank");
+  lastSearchQuery = query;  // Save the query for future use
+}
+
 function displaySearchOptions() {
   const terminal = document.getElementById("terminal");
 
   // Display search engine options
   terminal.innerHTML += `
-    <div>Select search engine:</div>
+    <div>Select search engine: ie . google nameofsearch</div>
     <div>- Google</div>
     <div>- Brave</div>
     <div>- Bing</div>
