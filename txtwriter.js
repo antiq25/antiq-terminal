@@ -1,29 +1,49 @@
 function txt() {
-  txtMode = true; // We're entering the txt mode
-  const terminal = document.getElementById("terminal");
-  const inputField = document.querySelector("#commandInput");
+  if (txtMode) {
+    // Exiting txt mode
+    const terminal = document.getElementById("terminal");
+    const inputField = document.querySelector("#commandInput");
 
-  // Disable the input field
-  inputField.disabled = true;
+    // Remove the textarea element
+    const fileContents = document.getElementById("file-contents");
+    if (fileContents) {
+      terminal.removeChild(fileContents);
+    }
 
-  // Clear the terminal before creating a new text input element
-  terminal.innerHTML = "";
+    // Re-enable the input field
+    inputField.disabled = false;
 
-  // Create a new text input element
-  const fileContents = document.createElement("textarea");
-  fileContents.setAttribute("id", "file-contents");
+    // Reset the txtMode flag
+    txtMode = false;
+  } else {
+    // Entering txt mode
+    txtMode = true;
+    const terminal = document.getElementById("terminal");
+    const inputField = document.querySelector("#commandInput");
 
-  // Add a keydown event listener that stops event propagation
-  fileContents.addEventListener("keydown", function(event) {
-    event.stopPropagation();
-  });
+    // Disable the input field
+    inputField.disabled = true;
 
-  // Append the text input element to the terminal
-  terminal.appendChild(fileContents);
+    // Clear the terminal before creating a new text input element
+    terminal.innerHTML = "";
 
-  // Set the focus to the text input element
-  fileContents.focus();
+    // Create a new text input element
+    const fileContents = document.createElement("textarea");
+    fileContents.setAttribute("id", "file-contents");
+
+    // Add a keydown event listener that stops event propagation
+    fileContents.addEventListener("keydown", function(event) {
+      event.stopPropagation();
+    });
+
+    // Append the text input element to the terminal
+    terminal.appendChild(fileContents);
+
+    // Set the focus to the text input element
+    fileContents.focus();
+  }
 }
+
 
 function saveToFile() {
   const terminal = document.getElementById("terminal");
