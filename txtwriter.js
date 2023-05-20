@@ -1,93 +1,20 @@
+// Text file writer functions
 function txt() {
-  if (txtMode) {
-    // Exiting txt mode
-    const terminal = document.getElementById("terminal");
-    const inputField = document.querySelector("#commandInput");
-
-    // Remove the textarea element
-    const fileContents = document.getElementById("file-contents");
-    if (fileContents) {
-      terminal.removeChild(fileContents);
-    }
-
-    // Re-enable the input field
-    inputField.disabled = false;
-
-    // Reset the txtMode flag
-    txtMode = false;
-  } else {
-    // Entering txt mode
-    txtMode = true;
-    const terminal = document.getElementById("terminal");
-    const inputField = document.querySelector("#commandInput");
-
-    // Disable the input field
-    inputField.disabled = true;
-
-    // Clear the terminal before creating a new text input element
-    terminal.innerHTML = "";
-
-    // Create a new text input element
-    const fileContents = document.createElement("textarea");
-    fileContents.setAttribute("id", "file-contents");
-
-    // Add a keydown event listener that stops event propagation
-    fileContents.addEventListener("keydown", function(event) {
-      event.stopPropagation();
-    });
-
-    // Append the text input element to the terminal
-    terminal.appendChild(fileContents);
-
-    // Set the focus to the text input element
-    fileContents.focus();
-  }
-}
-
-
-function saveToFile() {
   const terminal = document.getElementById("terminal");
-  const inputField = document.querySelector("#commandInput");
 
-  // Prompt the user to enter a name for the file
-  const fileName = prompt("Enter a name for the file:");
-
-  if (!fileName) {
-    terminal.innerHTML += "<div>File save cancelled.</div>";
-    return;
-  }
-
-  // Get the file contents from the textarea
-  const fileContents = document.getElementById("file-contents").value.trim();
-
-  // Save the file contents to a cookie with the specified name
-  document.cookie = `terminal-file-${fileName}=${encodeURIComponent(fileContents)}`;
-
-  // Display a confirmation message
-  terminal.innerHTML += `<div>File "${fileName}" saved.</div>`;
-
-  // Re-enable the input field
-  inputField.disabled = false;
-  txtMode = false; // We're exiting the txt mode
-}
-
-
-function exitPrompt() {
-  const terminal = document.getElementById("terminal");
-  const inputField = document.querySelector("#commandInput");
-
-  // Clear the terminal and end the query
+  // Clear the terminal before creating a new text input element
   terminal.innerHTML = "";
-  inputField.value = "";
-  currentPrompt = "> ";
-  promptElement.innerText = currentPrompt;
-  searchPrompt = false;
-  linkPrompt = false;
 
-  // Re-enable the input field
-  inputField.disabled = false;
+  // Create a new text input element
+  const fileContents = document.createElement("textarea");
+  fileContents.setAttribute("id", "file-contents");
+
+  // Append the text input element to the terminal
+  terminal.appendChild(fileContents);
+
+  // Set the focus to the text input element
+  fileContents.focus();
 }
-
   
   function saveToFile() {
     const terminal = document.getElementById("terminal");
@@ -161,7 +88,6 @@ function exitPrompt() {
     };
   
     loadButton.addEventListener("click", loadHandler);
-    txtMode = false; // We're exiting the txt mode
   }
   
   
@@ -180,6 +106,4 @@ function exitPrompt() {
     // Display a confirmation message
     const terminal = document.getElementById("terminal");
     terminal.innerHTML += "<div>All saved files deleted.</div>";
-    txtMode = false; // We're exiting the txt mode
-
   }
