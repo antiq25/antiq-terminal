@@ -2,10 +2,12 @@ let currentPrompt = "> ";
 let lastSearchQuery = "";
 let searchPrompt = false;
 let linkPrompt = false;
+let addingLink = false;
 let selectedLinkIndex = 0;
 const promptElement = document.getElementById("prompt");
 promptElement.innerText = currentPrompt;
 
+//EXIT AND LEAVE PROMPTS /
 function exitPrompt() {
   const terminal = document.getElementById("terminal");
   const inputField = document.querySelector("#commandInput");
@@ -19,14 +21,37 @@ function exitPrompt() {
   linkPrompt = false;
 }
 
+//KEY ARROWS FOR LINK SEARCHES ETC// 
+function navigateLinkSelection(direction) {    
+  const terminal = document.getElementById("terminal");
+  const linkElements = terminal.querySelectorAll(".link");
+
+  if (linkElements.length === 0) return;
+
+  linkElements[selectedLinkIndex].classList.remove("selected-link");
+
+  if (direction === "up") {
+    selectedLinkIndex = (selectedLinkIndex - 1 + linkElements.length) % linkElements.length;
+  } else if (direction === "down") {
+    selectedLinkIndex = (selectedLinkIndex + 1) % linkElements.length;
+  }
+
+  linkElements[selectedLinkIndex].classList.add("selected-link");
+  linkElements[selectedLinkIndex].scrollIntoView({ behavior: "smooth", block: "nearest" }); //make the screen follow when selecting links
+}
+
+
+//KEYS PRESSED + KEYS REGISTERED//  THERE MUST BE A SIMPLER WAY TO DO THIS ... 
 function handleInput(event) {
   const inputField = document.querySelector("#commandInput");
   const terminal = document.getElementById("terminal");
-
   if (event.key === "Enter") {
     if (inputField.value.trim().toLowerCase() === "exit") {
+      if (addingLink) {
+        handleInputLinker(event);
       exitPrompt();
       return;
+      }
     }
 
     const selectedLink = terminal.querySelector(".selected-link");
@@ -72,72 +97,5 @@ function handleInput(event) {
   }
 }
 
-function executeCommand(command) {
-  const terminal = document.getElementById("terminal");
+document.addEventListener("keydown", handleInput);
 
-  switch (command) {
-    case "search":
-      displaySearchOptions();
-      break;
-    case "info":
-      displayPlatformInfo();
-      break;
-    case "ip":
-      getIPData();
-      break;
-    case "help":
-      terminal.innerHTML = `
-        <div>commands:</div>
-        <div>-[search] - google, brave, bing for now. type google to open google, or google <query> to search etc</div>
-        <div>-[info]   - displays what terminal can see via platform.js</div>
-        <div>-[ip]     - gets ip address</div>
-        <div>-[help]   - displays available commands</div>
-        <div>-[links]  - links to tools 
-        <div>-[txt]    - creates txt edit (lots of work to do still on this)
-        <div>-[save]   - saves contents inside of txt editor into local storage
-        <div>-[load]   - loads local storage , displays into prompt
-        <div> [exit]   - exits + clears prompt. (this is your reset)
-      `;
-      break;
-    case "links":
-      displayLinks();
-      break;
-    case "txt":
-      txt();
-      break;
-    case "save":
-      saveToFile();
-      break;
-    case "load":
-      loadFromFile();
-      break;
-    case "delete":
-      deleteFileCookies();
-      break;
-    case "cls":
-      exitPrompt();
-      break;
-    default:
-      terminal.innerHTML += "<div>Unknown command: " + command + "</div>";
-      break;
-  }
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  const terminal = document.getElementById("terminal");
-  terminal.innerHTML += `
-     <pre>
-                    dP                                
-                    88                                
-.d8888b. .d8888b. d8888P .d8888b. 88d888b. 88d8b.d8b. 
-88ooood8 88'  \`88   88   88ooood8 88'  \`88 88'\`88'\'88 
-88.  ... 88.  .88   88   88.  ... 88       88  88  88 
-\`88888P' \`8888P88   dP   \`88888P' dP       dP  dP  dP 
-               88                                     
-               dP  
-      </pre>
--- 
-type 'help' for info
-  `;
-}
-)

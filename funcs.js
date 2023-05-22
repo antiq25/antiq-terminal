@@ -41,14 +41,41 @@ function displayPlatformInfo() {
   }
 
   const userName = parseUserNameFromUserAgent(navigator.userAgent);
-  const infoString = `
+  const infoString = 
+  `
   <pre>
+    <style>
+    .ascii-art {
+        color: #ffff; 
+        font-family: monospace;
+        font-size: 12px;
+    ;
+    }
+    .ascii-art span {
+        font-size 10px;
+        display: inline-block;
+        color: #2ecc71;
+    }
+  </style>
+  <div class="ascii-art">
+   <span>                   dP                                </span>
+  <span>                    88                                </span>
+  <span>.d8888b. .d8888b. d8888P .d8888b. 88d888b. 88d8b.d8b. </span>
+  <span>88ooood8 88'  \`88   88   88ooood8 88'  \`88 88'\`88'\'88 </span>
+  <span>88.  ... 88.  .88   88   88.  ... 88       88  88  88 </span>
+  <span>\`88888P' \`8888P88   dP   \`88888P' dP       dP  dP  dP </span>
+  <span>               88                                     </span>
+  <span>               dP     
+  </span>
+-- type 'help' for cmds-- 
 
 OS: ${systemInfo.os.toString()}
 Browser: ${systemInfo.name} ${systemInfo.version}
 CPU Cores: ${navigator.hardwareConcurrency}
 Screen Resolution: ${window.screen.width} x  ${window.screen.height}
 Platform: ${systemInfo.description}
+</pre>
+</div>
 `;
   const printInfo = document.createElement("div");
   printInfo.innerHTML = infoString;

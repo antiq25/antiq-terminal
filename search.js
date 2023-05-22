@@ -1,4 +1,5 @@
 function executeSearch(query) {
+    
     const terminal = document.getElementById("terminal");
   
     // Parse the search engine from the query
@@ -48,25 +49,4 @@ function executeSearch(query) {
     searchPrompt = true;
   }
   
-  function displayLinks() {
-    const terminal = document.getElementById("terminal");
-    let linksHTML = "";
-  
-    // Iterate over link sections and create the links HTML string
-    for (const section in linkSections) {
-      linksHTML += `<div class="section-title">${section}</div>`;
-      linkSections[section].forEach(link => {
-        linksHTML += `<div data-url="${link[1]}" class="link">${link[0]}</div>`;
-      });
-    }
-  
-    // Add the links HTML to the terminal
-    terminal.innerHTML = linksHTML;
-  
-    // Add event listener to each link
-    const links = terminal.getElementsByClassName("link");
-    for (const link of links) {
-      link.addEventListener("keydown", handleInput);
-    }
-  }
   
