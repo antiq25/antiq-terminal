@@ -1,18 +1,18 @@
+
 let currentPrompt = "> ";
 let lastSearchQuery = "";
 let searchPrompt = false;
 let linkPrompt = false;
 let addingLink = false;
 let selectedLinkIndex = 0;
+
 const promptElement = document.getElementById("prompt");
 promptElement.innerText = currentPrompt;
 
-//EXIT AND LEAVE PROMPTS /
 function exitPrompt() {
   const terminal = document.getElementById("terminal");
   const inputField = document.querySelector("#commandInput");
 
-  // Clear the terminal and end the query
   terminal.innerHTML = "";
   inputField.value = "";
   currentPrompt = "> ";
@@ -21,8 +21,7 @@ function exitPrompt() {
   linkPrompt = false;
 }
 
-//KEY ARROWS FOR LINK SEARCHES ETC// 
-function navigateLinkSelection(direction) {    
+function navigateLinkSelection(direction) {   
   const terminal = document.getElementById("terminal");
   const linkElements = terminal.querySelectorAll(".link");
 
@@ -37,21 +36,21 @@ function navigateLinkSelection(direction) {
   }
 
   linkElements[selectedLinkIndex].classList.add("selected-link");
-  linkElements[selectedLinkIndex].scrollIntoView({ behavior: "smooth", block: "nearest" }); //make the screen follow when selecting links
+  linkElements[selectedLinkIndex].scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
-
-//KEYS PRESSED + KEYS REGISTERED//  THERE MUST BE A SIMPLER WAY TO DO THIS ... 
 function handleInput(event) {
   const inputField = document.querySelector("#commandInput");
   const terminal = document.getElementById("terminal");
+
   if (event.key === "Enter") {
     if (inputField.value.trim().toLowerCase() === "exit") {
       if (addingLink) {
-        handleInputLinker(event);
+        // handleInputLinker(event); // make sure this function is defined
+        addingLink = false;
+      }
       exitPrompt();
       return;
-      }
     }
 
     const selectedLink = terminal.querySelector(".selected-link");
@@ -60,21 +59,21 @@ function handleInput(event) {
       const url = selectedLink.dataset.url;
       terminal.innerHTML += `<div>Opening link: ${selectedLink.textContent}</div>`;
       window.open(url, "_blank");
-      //checks to see if anything has been selected before clearing..
-      // Clear the terminal and end the query
+
+      // Do not clear terminal before removing class from selectedLink, selectedLink would be null
+      selectedLink.classList.remove("selected-link");
       terminal.innerHTML = "";
       inputField.value = "";
       currentPrompt = "> ";
       promptElement.innerText = currentPrompt;
       linkPrompt = false;
-      selectedLink.classList.remove("selected-link");
     } else if (searchPrompt || linkPrompt) {
       if (searchPrompt) {
         executeSearch(inputField.value.trim());
       } else {
         // Handle other prompts as needed
       }
-      // Clear the input field
+        
       inputField.value = "";
       currentPrompt = "> ";
       promptElement.innerText = currentPrompt;
@@ -83,15 +82,12 @@ function handleInput(event) {
     } else {
       executeCommand(inputField.value.trim());
 
-      // Clear the input field
       inputField.value = "";
     }
   } else if (event.key === "ArrowUp") {
-    // Handle arrow up key event
     event.preventDefault();
     navigateLinkSelection("up");
   } else if (event.key === "ArrowDown") {
-    // Handle arrow down key event
     event.preventDefault();
     navigateLinkSelection("down");
   }
@@ -99,3 +95,8 @@ function handleInput(event) {
 
 document.addEventListener("keydown", handleInput);
 
+
+window.onload = function() {
+  const commandInput = document.getElementById('commandInput');
+  commandInput.focus();
+};

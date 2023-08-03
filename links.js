@@ -1,49 +1,9 @@
 const linkSections = { 
-  "DNS, CDN, DDOS": [
-    ["Cloudflare", "https://www.cloudflare.com", "DNS CDN DDOS"]
-  ],
-  "Development": [
-    ["WebDev", "https://webdevhome.github.io", "Dev Homepage"],
-    ["Dev.to", "https://dev.to", "Dev Social"],
-    ["DevURLs", "https://devurls.com", "Dev News"],
-    ["OpenSource", "https://awesomeopensource.com", "FOSS Dev"],
-    ["FreeDev", "https://free-for.dev", "Free Dev"]
-    // Add other Development links
-  ],
-  "Web Server": [
-    ["NGINXConf", "https://www.digitalocean.com/community/tools/nginx", "Web Server"],
-    ["NGINXDocker", "https://nginxproxymanager.com", "Web Server"],
-    ["NGINXGuide", "https://github.com/trimstray/nginx-admins-handbook", "Web Server"]
-    // Add other Web Server links
-  ],
-  "Code": [
-    ["svgCode", "red", "-HEAD-"],
-    ["Cheat.sh", "https://cheat.sh", "Cheat Sheet"],
-    ["CheatSheet", "https://lecoupa.github.io/awesome-cheatsheets/", "Cheat Sheet"],
-    ["Cheat-Sheet", "https://lzone.de/cheat-sheet.html", "Cheat Sheet"],
-    ["DevRoadmap", "https://roadmap.sh", "Learning Guides"],
-    ["FastDesign", "https://www.fast.design", "Code Packages"],
-    ["Libraries", "https://libraries.io", "Code Packages"],
-    ["Word2HTML", "https://word2cleanhtml.com", "HTML Convert"],
-    ["RequestBin", "https://requestbin.com", "Dev Tools"],
-    ["GeekTool", "https://gf.dev/toolbox", "Dev Tools"],
-    ["GitHub", "https://github.com/trending?since=monthly", "Code Colab"],
-    ["GitLab", "https://gitlab.com", "Code Colab"],
-    ["Repl.it", "https://repl.it", "Code Colab"],
-    ["SharePad", "https://www.sharepad.io", "Code Colab"],
-    ["CodePen", "https://codepen.io", "Explore Code"],
-    ["CodeSandbox", "https://codesandbox.io/search", "Explore Code"],
-    ["DevDocs", "https://devdocs.io", "WebDev Docs"],
-
-    ],
-  "Fonts": [
-    ["NerdFonts", "https://nerdfonts.com", "Fonts"],
-    ["GoogleFont", "https://google-webfonts-helper.herokuapp.com", "Fonts"],
+  'type exit to leave after creating links': [
   ]
-};
+}
 
 // Add other sections and their links
-
 
 
 function displayLinks() {

@@ -87,3 +87,6 @@ Platform: ${systemInfo.description}
 document.addEventListener("DOMContentLoaded", function () {
   displayPlatformInfo();
 });
+
+
+E
